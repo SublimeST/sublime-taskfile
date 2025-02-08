@@ -1,0 +1,6 @@
+[
+    {
+        "caption": "Taskfile: Run task",
+        "command": "taskfile_run_task"
+    }
+]

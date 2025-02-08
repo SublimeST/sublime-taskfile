@@ -1,0 +1,37 @@
+version: '3'
+tasks:
+  check:
+    - task: check:ec
+    - task: check:pyright
+    - task: check:ruff
+    - task: check:isort
+    - task: check:black
+
+  check:black:
+    cmd: poetry run black --check .
+
+  check:ec:
+    cmd: poetry run ec
+
+  check:isort:
+    cmd: poetry run isort --check .
+
+  check:pyright:
+    cmd: poetry run pyright
+
+  check:ruff:
+    cmd: poetry run ruff check
+
+  fix:
+    - task: fix:ruff
+    - task: fix:black
+    - task: fix:isort
+
+  fix:black:
+    cmd: poetry run black .
+
+  fix:isort:
+    cmd: poetry run isort .
+
+  fix:ruff:
+    cmd: poetry run ruff check --fix

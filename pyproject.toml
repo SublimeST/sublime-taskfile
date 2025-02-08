@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "sublime-taskfile"
+package-mode = false
+version = "0.1.0"
+description = ""
+authors = ["Alan Reyes"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.group.dev.dependencies]
+black = "*"
+editorconfig-checker = "^3.2.0"
+isort = "*"
+pyright = "^1.1.393"
+ruff = "^0.9.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+profile = "black"
