@@ -1,7 +1,7 @@
 import logging
 import os
 import subprocess
-from typing import List, TypedDict, cast
+from typing import Dict, List, Optional, TypedDict, cast
 
 import sublime
 import sublime_plugin
@@ -88,10 +88,12 @@ class TaskfileRunTask(sublime_plugin.WindowCommand):
         self.window.run_command("show_panel", {"panel": "output.Taskfile"})
 
     def get_tasks(self, tasks_directory: str):
-        directory = cast(str | None, self.window.settings().get("taskfile.directory"))
-        content = cast(dict | None, self.window.settings().get("taskfile.content"))
+        directory = cast(
+            Optional[str], self.window.settings().get("taskfile.directory")
+        )
+        content = cast(Optional[Dict], self.window.settings().get("taskfile.content"))
         locations = cast(
-            List[LocationCacheItem] | None,
+            Optional[List[LocationCacheItem]],
             self.window.settings().get("taskfile.locations"),
         )
 
