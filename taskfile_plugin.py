@@ -52,12 +52,18 @@ class TaskfileRunTask(sublime_plugin.WindowCommand):
 
             self._logger.info(quick_panel_items[selected_idx])
 
+            if sublime.platform() == "windows":
+                si = subprocess.STARTUPINFO()
+                si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+            else:
+                si = None
+
             sp = subprocess.Popen(
                 ["task", task_name],
                 cwd=tasks_directory,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
-                creationflags=subprocess.DETACHED_PROCESS,
+                startupinfo=si,
             )
 
             output, _ = sp.communicate()
@@ -123,12 +129,18 @@ class TaskfileRunTask(sublime_plugin.WindowCommand):
         return content
 
     def get_taskfile_content(self, tasks_directory: str) -> dict:
+        if sublime.platform() == "windows":
+            si = subprocess.STARTUPINFO()
+            si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+        else:
+            si = None
+
         ps = subprocess.Popen(
             ["task", "--list-all", "--json"],
             cwd=tasks_directory,
-            creationflags=subprocess.DETACHED_PROCESS,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
+            startupinfo=si,
         )
 
         output, error_output = ps.communicate()
